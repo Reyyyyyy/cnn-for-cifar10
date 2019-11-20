@@ -26,7 +26,7 @@ def predict(img):
     use_bn = True
     use_dropout = False
 
-    pred = conv_net(img,weights,biases,use_bn,use_dropout)
+    pred,_ = conv_net(img,weights,biases,use_bn,use_dropout)
     init = tf.global_variables_initializer()
 
     with tf.Session() as sess:
