@@ -12,13 +12,13 @@ from sklearn.utils import shuffle
 #超参数
 lr = 0.001
 batch_size = 96
-iters = 1500
-view_1 = 5
+iters = 2000
+view_1 = 3
 view_2 = 5
 view_3 = 5
 #view_4 = 3
 #view_5 = 3
-num_filter_1 = 32
+num_filter_1 = 48
 num_filter_2 = 64
 num_filter_3 = 64
 #num_filter_4 = 64
@@ -215,20 +215,7 @@ if __name__=='__main__':
             acc = sess.run(accuracy,feed_dict={x:x_batch,y:y_batch,keep_prob:1.0})
             print('loss:',loss)
             print('accuracy:',acc,'\n')
-            #探索特征图
-            plt.subplot(2,1,1)
-            plt.axis('off')
-            plt.imshow(x_batch[10].reshape(32,32))
 
-            plt.subplot(2,1,2)
-            for idx,conv in enumerate(convs):
-                maps_batches = sess.run(conv,feed_dict={x:x_batch,y:y_batch,keep_prob:dropout})
-                maps = maps_batches[10]
-                for chanel in range(maps.shape[-1]):
-                    plt.imshow(maps[:,:,chanel])
-                    plt.axis('off')
-                    plt.title('conv:'+str(idx+1)+'    chanel:'+str(chanel+1))
-                    plt.pause(0.1)
             
             '''
             for idx,activation in enumerate(activations):
@@ -262,11 +249,28 @@ if __name__=='__main__':
         for i in range(100):
             acc_test = sess.run(accuracy,feed_dict={x:test_x[indx:indx+99],y:test_y[indx:indx+99],keep_prob:dropout})
             indx += 100
+            print('Test accuracy: ',acc_test)
             avg_acc_test += acc_test
             
         avg_acc_test = avg_acc_test/100
         print('Done! Average accuracy of test data is: ',avg_acc_test)
+        
+        #探索特征图
+        plt.subplot(2,1,1)
+        plt.axis('off')
+        plt.imshow(test_x[10].reshape(32,32))
 
+        plt.subplot(2,1,2)
+        for idx,conv in enumerate(convs):
+            maps_batches = sess.run(conv,feed_dict={x:test_x,y:test_y,keep_prob:1.0})
+            maps = maps_batches[10]
+            for chanel in range(maps.shape[-1]):
+                plt.imshow(maps[:,:,chanel])
+                plt.axis('off')
+                plt.title('conv:'+str(idx+1)+'    chanel:'+str(chanel+1))
+                plt.pause(0.1)
+        
+'''
         #保存模型变量，注意json不接受numpy的array,要变成list
         with open ('weights.json','w') as f:
             ws = {}
@@ -279,7 +283,7 @@ if __name__=='__main__':
             for name,b in biases.items():
                 bs[name] = sess.run(b).tolist()
             json.dump(bs,f)
-                
+'''                
     
 
 
@@ -288,7 +292,3 @@ if __name__=='__main__':
 
 
 
-
-         
-    
-    
