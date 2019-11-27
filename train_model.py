@@ -212,7 +212,7 @@ if __name__=='__main__':
             #x_batch,y_batch = roll_pics(x_batch,y_batch)
             sess.run(optimizer,feed_dict={x:x_batch,y:y_batch,keep_prob:dropout})
             loss = sess.run(cost,feed_dict={x:x_batch,y:y_batch,keep_prob:dropout})
-            acc = sess.run(accuracy,feed_dict={x:x_batch,y:y_batch,keep_prob:dropout})
+            acc = sess.run(accuracy,feed_dict={x:x_batch,y:y_batch,keep_prob:1.0})
             print('loss:',loss)
             print('accuracy:',acc,'\n')
             #探索特征图
