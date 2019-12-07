@@ -152,12 +152,12 @@ def conv_net(x,weights,biases,use_bn,use_dropout):
     return out,convs
 
 weights={'wc1':tf.Variable(tf.random.truncated_normal([view_1,view_1,1,num_filter_1],stddev=0.02)),
-         'wc2':tf.Variable(tf.random.truncated_normal([view_2,view_2,num_filter_1,num_filter_2],stddev=0.02))/np.sqrt(num_filter_1/2),
-         'wc3':tf.Variable(tf.random.truncated_normal([view_3,view_3,num_filter_2,num_filter_3],stddev=0.02))/np.sqrt(num_filter_2/2),
-         #'wc4':tf.Variable(tf.random.truncated_normal([view_4,view_4,num_filter_3,num_filter_4],stddev=0.05))/np.sqrt(num_filter_3/2),
-         #'wc5':tf.Variable(tf.random.truncated_normal([view_5,view_5,num_filter_4,num_filter_5],stddev=0.05))/np.sqrt(num_filter_4/2),
-         'wf1':tf.Variable(tf.random.truncated_normal([8*8*num_filter_3,fc_neuron_num_1],stddev=0.04))/np.sqrt(num_filter_3/2),
-         #'wf2':tf.Variable(tf.random.truncated_normal([fc_neuron_num_1,fc_neuron_num_out],stddev=0.04))/np.sqrt(fc_neuron_num_1/2),
+         'wc2':tf.Variable(tf.random.truncated_normal([view_2,view_2,num_filter_1,num_filter_2],stddev=0.02)/np.sqrt(num_filter_1/2)),
+         'wc3':tf.Variable(tf.random.truncated_normal([view_3,view_3,num_filter_2,num_filter_3],stddev=0.02)/np.sqrt(num_filter_2/2)),
+         #'wc4':tf.Variable(tf.random.truncated_normal([view_4,view_4,num_filter_3,num_filter_4],stddev=0.05)/np.sqrt(num_filter_3/2)),
+         #'wc5':tf.Variable(tf.random.truncated_normal([view_5,view_5,num_filter_4,num_filter_5],stddev=0.05)/np.sqrt(num_filter_4/2)),
+         'wf1':tf.Variable(tf.random.truncated_normal([8*8*num_filter_3,fc_neuron_num_1],stddev=0.04)/np.sqrt(num_filter_3/2)),
+         #'wf2':tf.Variable(tf.random.truncated_normal([fc_neuron_num_1,fc_neuron_num_out],stddev=0.04)/np.sqrt(fc_neuron_num_1/2)),
          'out':tf.Variable(tf.random.truncated_normal([fc_neuron_num_1,10],stddev=1/192)/np.sqrt(192/2))
          }
 
